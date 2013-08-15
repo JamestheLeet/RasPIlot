@@ -11,8 +11,7 @@ loc, speed = 0
 throttle = 0
 changedistance = 0.000002
 path = open('path', 'r')
-limit = 16
-minspeed = 15
+throttle = 10
 
 def gpsread():
   while True:
@@ -48,10 +47,6 @@ def gotoloc(destination):
       if (steer < -30)
 	steer = -30
       steer(steer)
-      if speed > limit
-	throttle = throttle - 1
-      if speed < minspeed
-	throttle = throttle + 1
       throttle(throttle)
     else if (distto < changedistance)
       repeat = 0
@@ -60,6 +55,10 @@ def gotoloc(destination):
     
 while True:
   dest = path.readline()
+  if dest == 'end':
+    throttle(0)
+    steer(0)
+    break
   dest = strip(dest)
   dest = split(dest, ':')
   gotoloc(dest)
