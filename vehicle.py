@@ -16,7 +16,7 @@ def setServoPulse(channel, pulse):
 
 pwm.setPWMFreq(60)
 def throttle(throttle):
-  actthrottle = ((1+((50+(throttle/2))*.01))/20)*4096
+  actthrottle = (100+throttle)+250
   pwm.setPWM(motorpin, 0, actthrottle)
   
 def steer(angle):

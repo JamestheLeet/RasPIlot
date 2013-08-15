@@ -9,9 +9,10 @@ session = gps.gps("localhost", "2947")
 session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
 loc, speed = 0
 throttle = 0
+changedistance = 0.000002
 path = open('path', 'r')
-limit = 20
-minspeed = 10
+limit = 16
+minspeed = 15
 
 def gpsread():
   while True:
@@ -38,7 +39,8 @@ def gpsread():
 def gotoloc(destination):
   while repeat:
     distto = dist(loc, destination)
-    if (distto > 0.000002)
+    repeat = 1
+    if (distto > changedistance)
       steer = heading(loc, destination)
       steer = steer - track
       if (steer > 30)
@@ -51,6 +53,9 @@ def gotoloc(destination):
       if speed < minspeed
 	throttle = throttle + 1
       throttle(throttle)
+    else if (distto < changedistance)
+      repeat = 0
+      return('done: ' + destination);
      
     
 while True:
